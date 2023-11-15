@@ -1,0 +1,21 @@
+{
+  "name": "delilah-resto",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Este proyecto plantea la creación de un sistema de pedidos online para un restaurante. Deberás poner en funcionamiento las partes necesarias para montar una REST API que permita realizar altas, bajas, modificaciones y obtención de información sobre una estructura de datos que podría consumir un cliente.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start-nodemon": "nodemon server.js",
+    "start": "node --watch server.js"
+  },
+  "keywords": [],
+  "author": "JulSarmiento",
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "http-status": "^1.7.3",
+    "joi": "^17.11.0"
+  }
+}
