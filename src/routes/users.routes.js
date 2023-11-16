@@ -43,7 +43,11 @@ User.init({
       notEmpty: true,
       isEmail: true,
       isLowercase: true
-    }
+    },
+    // set(value) {
+    //   const encryptedPassword = encryptPassword(value);
+    //   this.setDataValue('password', encryptedPassword);
+    // }
   },
   phone: {
     type: DataTypes.STRING,
