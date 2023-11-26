@@ -1,78 +1,16 @@
-import { Model, DataTypes } from 'sequelize';
-import Sequelize from '../utils/postgresql.config.js';
+import express from 'express';
+import pkg from 'express-openid-connect';
 
-// import { encryptedPassword } from '../utils/encryption.js';
+const router = express.Router();
 
-class User extends Model {
+const {requiresAuth} = pkg;
 
-  // static login(username, password) {
-  //   return this.findOne({
-  //     where: {
-  //       username,
-  //       password: encryptedPassword(password)
-  //     },
-  //   });
-  // }
-}
-
-User.init({
-  id: {
-    type: DataTypes.UUID,
-    defaultValue: Sequelize.UUIDV4,
-    primaryKey: true,
-    unique: true
-  },
-  username: {
-    type: DataTypes.STRING,
-    allowNull: false,
-    unique: true
-  },
-  fullName: {
-    type: DataTypes.STRING,
-    allowNull: false
-  },
-  email: {
-    type: DataTypes.STRING,
-    allowNull: false
-  },
-  password: {
-    type: DataTypes.STRING,
-    allowNull: false,
-    unique: true,
-    validate: {
-      notEmpty: true,
-      isEmail: true,
-      isLowercase: true
-    },
-    // set(value) {
-    //   const encryptedPassword = encryptPassword(value);
-    //   this.setDataValue('password', encryptedPassword);
-    // }
-  },
-  phone: {
-    type: DataTypes.STRING,
-    allowNull: false,
-    validate: {
-      len: [9, 11],
-    },
-  },
-  active: {
-    type: DataTypes.BOOLEAN,
-    allowNull: false,
-    defaultValue: true,
-  },
-  role: {
-    type: DataTypes.STRING,
-    allowNull: false,
-    defaultValue: 'user',
-    validate: {
-      isIn: [['user', 'admin']],
-    }
-  }
-  }, {
-    sequelize,
-    modelName: 'User',
-    tableName: 'users',
+router.get('/', (req, res) => {
+  res.send(req.oidc.isAuthenticated() ? 'Logged in' : 'Logged out');
 });
 
-export default User;
+router.get('/profile', requiresAuth(), (req, res) => {
+  res.send(JSON.stringify(req.oidc.user));
+});
+
+export default router;
