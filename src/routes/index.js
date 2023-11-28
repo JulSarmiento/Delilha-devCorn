@@ -20,5 +20,8 @@ router.get(`/health`, (_req, res) => {
 router.use(auth(auth0Config))
   .use(usersRouter)
 
+router.use(`${BASE_URL}/users`, usersRouter)
+  
+
 
 export default router;

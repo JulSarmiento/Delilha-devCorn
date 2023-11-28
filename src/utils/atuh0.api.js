@@ -1,10 +1,9 @@
-import 'dotenv/config';
-
 const url = `${process.env.MANAGMENT_API_URL}oauth/token`;
 
 // get token
 const options = {
   method: 'POST',
+  url,
   headers: {
     'Content-Type': 'application/json',
   },
@@ -16,8 +15,8 @@ const options = {
   }),
 };
 
-const getTolen = async () => { 
-  fetch(url, options)
+export default () => { 
+  return fetch(url, options)
   .then(response => {
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
@@ -26,10 +25,12 @@ const getTolen = async () => {
   })
   .then(data => {
     console.log(data);
+    return data;
   })
   .catch(error => {
     console.error('Error:', error);
+    return error;
   })
 };
 
-getTolen();
+
