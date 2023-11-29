@@ -6,13 +6,20 @@ const router = express.Router();
 const {requiresAuth} = pkg;
 
 router.get('/', (req, res) => {
-  res.send(req.oidc.isAuthenticated() ? 'Logged in' : 'Logged out');
+  if (req.oidc.isAuthenticated()) {
+    res.send('Logged in');
+  } else {
+    res.send('Logged out');
+  }
+
 });
 
 router.get('/profile', requiresAuth(), (req, res) => {
   res.send(JSON.stringify(req.oidc.user));
 });
 
-router.get('/', getAllUsers);
+// router.get('/listUsers', requiresAuth(), getAllUsers);
+router.get('/listUsers', getAllUsers);
+
 
 export default router;
