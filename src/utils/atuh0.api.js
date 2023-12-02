@@ -15,22 +15,21 @@ const options = {
   }),
 };
 
-export default () => { 
-  return fetch(url, options)
-  .then(response => {
+export default async () => {
+  try{
+    const response = await fetch(url, options);
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
-    }
-    return response.json();
-  })
-  .then(data => {
-    console.log(data);
-    return data;
-  })
-  .catch(error => {
+    };
+    return await response.json();
+
+  }
+  catch (error){
     console.error('Error:', error);
     return error;
-  })
-};
+  };
+}
+
+
 
 
